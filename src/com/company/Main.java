@@ -2,6 +2,12 @@ package com.company;
 
 import redis.clients.jedis.Jedis;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Main {
 
 
@@ -44,10 +50,30 @@ public class Main {
             return false;
         }
 
+        public void initiate(FileReader reader){
+            try {
+
+                BufferedReader br = new BufferedReader(reader);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String [] data = line.split(",");
+                    create(data[0] , data[1]);
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 
     public static void main(String[] args) {
+        DBHandler db = new DBHandler("localhost");
+        try {
+            db.initiate(new FileReader("C:\\Users\\fama\\Desktop\\Study 4th term\\Databases\\Projects\\Project0\\NYSE_20210301.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 }
