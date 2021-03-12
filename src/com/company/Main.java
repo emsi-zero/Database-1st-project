@@ -12,13 +12,16 @@ public class Main {
         }
 
         public boolean create(String key, String value){
-
+            if (fetch(key) == null){
+                jedis.lpush(key , value);
+                return true;
+            }
             return false;
         }
 
-        public boolean fetch(String key){
+        public String fetch(String key){
 
-            return false;
+            return null;
         }
 
         public boolean update(String key, String value){
