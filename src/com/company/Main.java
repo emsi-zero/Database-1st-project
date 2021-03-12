@@ -5,7 +5,7 @@ import redis.clients.jedis.Jedis;
 public class Main {
 
 
-    class DBHandler{
+    static class DBHandler{
         Jedis jedis;
         DBHandler(String host){
             jedis = new Jedis(host);
@@ -20,8 +20,11 @@ public class Main {
         }
 
         public String fetch(String key){
-
-            return null;
+            try{
+                return jedis.lrange(key , 0 , 0).get(0);
+            }catch (IndexOutOfBoundsException e){
+                return null;
+            }
         }
 
         public boolean update(String key, String value){
