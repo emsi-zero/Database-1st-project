@@ -28,12 +28,19 @@ public class Main {
         }
 
         public boolean update(String key, String value){
-
+            if (fetch(key) != null){
+                if (delete(key)){
+                    return create(key,value);
+                }
+                return false;
+            }
             return false;
         }
 
         public boolean delete(String key){
-
+            if (jedis.lpop(key)!= null){
+                return true;
+            }
             return false;
         }
 
