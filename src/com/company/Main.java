@@ -75,5 +75,41 @@ public class Main {
             e.printStackTrace();
         }
 
+        Scanner scanner = new Scanner(System.in);
+
+        while(true){
+
+            String [] input = scanner.nextLine().split(" ");
+            try {
+                switch (input[0]) {
+                    case "create":
+                        System.out.println(db.create(input[1], input[2]));
+                        break;
+                    case "fetch":
+                        String s = db.fetch(input[1]);
+                        if (s != null) {
+                            System.out.println("true");
+                            System.out.println(s);
+                        } else {
+                            System.out.println("false");
+                        }
+                        break;
+                    case "update":
+                        System.out.println(db.update(input[1], input[2]));
+                        break;
+                    case "delete":
+                        System.out.println(db.delete(input[1]));
+                        break;
+                    default:
+                        break;
+                }
+            }catch (Exception e){
+                continue;
+            }
+            System.out.println();
+
+        }
+
+
     }
 }
